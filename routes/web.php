@@ -1,8 +1,11 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\UserController;
+use App\Models\Kegiatan;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\KegiatanController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PendaftaranKegiatanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,17 +18,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/login', function () {
     return view('pages.auth.login');
-})->middleware(['guest']);
+})->middleware(['guest'])->name('login');
 
-Route::middleware(['auth', 'verified'])->group(function() {
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::middleware(['can:admin'])->group(function () {
+    });
+    Route::resource('user', UserController::class);
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/profile', [DashboardController::class, 'profile'])->name('profile');
     Route::put('/change-profile-avatar', [DashboardController::class, 'changeAvatar'])->name('change-profile-avatar');
     Route::delete('/remove-profile-avatar', [DashboardController::class, 'removeAvatar'])->name('remove-profile-avatar');
 
-    Route::middleware(['can:admin'])->group(function() {
-        Route::resource('user', UserController::class);
+    Route::middleware(['can:user'])->group(function () {
+        Route::get('/', [KegiatanController::class, 'index'])->name('index');
+        Route::get('/kegiatan/{slug}', [KegiatanController::class, 'show'])->name('kegiatanDetail');
+        Route::post('/store/{slug}/{id}', [PendaftaranKegiatanController::class, 'store'])->name('proses_pendaftaran');
     });
 });
+
+Route::get('/', [KegiatanController::class, 'index'])->name('index');
+Route::get('/kegiatan/{slug}', [KegiatanController::class, 'show'])->name('kegiatanDetail');

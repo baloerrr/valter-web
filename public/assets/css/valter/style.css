@@ -1,0 +1,128 @@
+html {
+    scroll-behavior: smooth;
+}
+
+.rounded-bottom {
+    border-bottom-left-radius: 20px !important;
+    border-bottom-right-radius: 20px !important;
+}
+
+.background {
+    background: linear-gradient(135deg, #972ff8 0%, #1e288f 100%);
+}
+
+th {
+    font-size: 36px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #972ff8 0%, #3142ff 100%);
+}
+
+@keyframes move_wave {
+    0% {
+        transform: translateX(0) translateZ(0) scaleY(1);
+    }
+    50% {
+        transform: translateX(-25%) translateZ(0) scaleY(0.55);
+    }
+    100% {
+        transform: translateX(-50%) translateZ(0) scaleY(1);
+    }
+}
+.waveWrapper {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    margin: auto;
+}
+.waveWrapperInner {
+    position: absolute;
+    overflow-x: hidden;
+    width: 100%;
+    height: 100%;
+    bottom: -20px;
+    background-color: transparent;
+}
+.bgTop {
+    z-index: 15;
+    opacity: 0.5;
+}
+.bgMiddle {
+    z-index: 10;
+    opacity: 0.75;
+}
+.bgBottom {
+    z-index: 5;
+}
+.wave {
+    position: absolute;
+    left: 0;
+    overflow-x: hidden;
+    width: 200%;
+    height: 100%;
+    background-repeat: repeat no-repeat;
+    background-position: bottom;
+    transform-origin: center bottom;
+}
+.waveTop {
+    background-size: 50% 100px;
+}
+.waveAnimation .waveTop {
+    animation: move-wave 3s;
+    -webkit-animation: move-wave 3s;
+    -webkit-animation-delay: 1s;
+    animation-delay: 1s;
+}
+.waveMiddle {
+    background-size: 50% 120px;
+}
+.waveAnimation .waveMiddle {
+    animation: move_wave 10s linear infinite;
+}
+.waveBottom {
+    background-size: 50% 100px;
+}
+.waveAnimation .waveBottom {
+    animation: move_wave 15s linear infinite;
+}
+
+.kotak {
+    width: 588px;
+    height: 294px;
+    flex-shrink: 0;
+    background: #e9e9e9;
+}
+
+#download .btn,
+.btn-light {
+    color: #972ff8;
+    font-size: 36px;
+}
+
+.text {
+    background: linear-gradient(135deg, #972ff8 0%, #1d29ad 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+footer {
+    background: #141626;
+}
+
+#kegiatan img {
+    width: 199.181px;
+    height: 124px;
+    flex-shrink: 0;
+    margin: auto;
+}
+
+.ungu {
+    color: purple;
+}
+
+.min-vh-85 {
+    min-height: 85vh !important;
+}

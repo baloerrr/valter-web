@@ -36,6 +36,7 @@
                     </div>
                 </section>
             </div>
+
             <footer class="main-footer">
                 @include('includes.footer')
             </footer>
