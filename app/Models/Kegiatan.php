@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\DaftarKegiatan;
 
 class Kegiatan extends Model
 {
@@ -12,4 +13,9 @@ class Kegiatan extends Model
     protected $table = 'kegiatans';
 
     protected $fillable = ['nama_kegiatan', 'deskripsi', 'gambar'];
+
+    public function daftarKegiatan()
+    {
+        $this->hasMany(DaftarKegiatan::class);
+    }
 }

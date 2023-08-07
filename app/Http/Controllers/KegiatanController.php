@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DaftarKegiatan;
+use App\Models\dokumentasi;
 use App\Models\Kegiatan;
-use Illuminate\Http\Request;
+use App\Models\Sponsor;
+use App\Models\Timeline;
 use Illuminate\Support\Facades\Auth;
 
 class KegiatanController extends Controller
@@ -13,7 +16,10 @@ class KegiatanController extends Controller
         return view(
             'user.index',
             [
-                'kegiatans' => Kegiatan::all()
+                'kegiatans' => Kegiatan::all(),
+                'dokumentasis' => dokumentasi::all(),
+                'timelines' => Timeline::all(),
+                'sponsors' => Sponsor::all()
             ]
         );
     }

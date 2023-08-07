@@ -24,10 +24,16 @@
 
         @can('admin')
             <li class="menu-header">Administrator</li>
-            <li class="{{ Route::is('user*') ? 'active' : '' }}">
+            <li class="{{ Route::is('user.index') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('user.index') }}">
                     <i class="fas fa-users"></i>
                     <span>Manage Users</span>
+                </a>
+            </li>
+            <li class="{{ Route::is('user_pendaftaran') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('user_pendaftaran') }}">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span>Manage Pendaftaran</span>
                 </a>
             </li>
         @endcan

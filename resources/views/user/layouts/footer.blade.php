@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row justify-content-center">
     <div class="col-4">
         <div class="text-white text-center">
             &copy;2023 <span class="fw-bold"> VALTER</span>

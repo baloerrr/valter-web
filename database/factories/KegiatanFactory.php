@@ -19,8 +19,11 @@ class KegiatanFactory extends Factory
     {
         return [
             'nama_kegiatan' => fake()->sentence(4), // 
-            'deskripsi' => fake()->paragraph(2),
+            'deskripsi' => collect($this->faker->paragraphs(mt_rand(5, 10)))->map(function ($p) {
+                return "<p>$p</p>";
+            })->implode(''),
             'gambar' => 'default.jpg',
+            'poster' => 'default.jpg',
             'slug' => fake()->slug()
         ];
     }

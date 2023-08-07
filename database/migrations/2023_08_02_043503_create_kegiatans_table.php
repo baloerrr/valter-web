@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nama_kegiatan');
             $table->text('deskripsi');
             $table->string('gambar');
+            $table->string('poster');
             $table->string('slug')->unique();
             $table->timestamps();
         });
