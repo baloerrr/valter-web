@@ -1,8 +1,23 @@
 <div class="card mb-5">
+    @php
+        $webDesignSlug = 'lomba-web-design';
+        $designLogoSlug = 'lomba-design-logo';
+        $pelatihanSlug = 'pelatihan';
+        $seminarSlug = 'seminar';
+        $mobileLegendSlug = 'lomba-mobile-legend';
+        
+        $slug = $kegiatan->slug;
+        
+        $allowedSlugs = ['lomba-web-design', 'lomba-design-logo', 'lomba-mobile-legend'];
+    @endphp
+
     @guest
         <div class="card-header text-center bg-primary text-white">
-            <p>Batas Pendaftaran</p>
-            <h4>26 September 2023</h4>
+            @if (in_array($kegiatan->slug, $allowedSlugs))
+                <h4>20 September 2023</h4>
+            @else
+                <h4>2 Oktober 2023</h4>
+            @endif
         </div>
         <div class="card-body text-center">
             <p>Maaf Anda belum login</p>
@@ -17,8 +32,11 @@
 
         @if ($userDaftar)
             <div class="card-header text-center bg-primary text-white">
-                <p>Batas Pendaftaran</p>
-                <h4>26 September 2023</h4>
+                @if (in_array($kegiatan->slug, $allowedSlugs))
+                    <h4>20 September 2023</h4>
+                @else
+                    <h4>2 Oktober 2023</h4>
+                @endif
             </div>
             <div class="bg-white card-body text-center">
                 <h5 class="text-success">Berhasil mendaftar</h5>
@@ -31,95 +49,119 @@
                         <p class="mb-0">{{ $userDaftar->status }}</p>
                     </div>
                 @endif
-
             </div>
         @else
-            <div class="card-header text-center bg-primary text-white">
-                <p>Batas Pendaftaran</p>
-                <h4>26 September 2023</h4>
-            </div>
-            <div class="card-body">
-                <form enctype="multipart/form-data"
-                    action="{{ route('proses_pendaftaran', ['slug' => $kegiatan->slug, 'id' => $user->id]) }}"
-                    method="POST">
-                    @method('POST')
-                    @csrf
-                    <input type="hidden" name="kegiatan_id" value="{{ $kegiatan->id }}">
-                    <div class="mb-3">
-                        <label for="no_whatsapp" class="form-label">Nomor Whatsapp</label>
-                        <input type="number" class="form-control rounded-pill " name="no_whatsapp" id="no_whatsapp"
-                            aria-describedby="emailHelp">
-                    </div>
-                    <div class="mb-3">
-                        <label for="asal_instansi" class="form-label">Asal Instansi</label>
-                        <input type="text" class="form-control rounded-pill" name="asal_instansi" id="asal_instansi">
-                    </div>
-
-
-                    @php
-                        $allowedSlugs = ['lomba-web-design', 'lomba-design-logo', 'lomba-mobile-legend'];
-                    @endphp
+            @can('user')
+                <div class="card-header text-center bg-primary text-white">
+                    <p>Batas Pendaftaran</p>
                     @if (in_array($kegiatan->slug, $allowedSlugs))
-                        <div class="mb-3">
-                            <label for="pembayaran" class="form-label">Pembayaran</label>
-                            <div class="text-center d-flex flex-column align-items-center">
-                                <label for="scanPembayaran" class="form-label">Scan Pembayaran</label>
-                                <img style="width: 150px" src="{{ asset('assets/img/valter/qrcode_delima.jpeg') }}"
-                                    id="scanPembayaran" alt="">
-                                <p class="form-label">atau</p>
-
-                                <div class="input-group w-100">
-                                    <input id="textToCopy" class="form-control rounded-pill d-inline-block"
-                                        name="bukti_pembayaran" value="085841431872 (Dana: Delima Ayu Anugrah)" readonly>
-                                    <button class="btn btn-primary mx-2 rounded-pill d-inline-block" type="button"
-                                        id="copyButton"><i id="copyIcon" class="fa-regular fa-clipboard"></i></button>
-                                    <div class="toast-container  p-3">
-                                        <div id="copyAlert" class="toast" role="alert" aria-live="assertive"
-                                            aria-atomic="true">
-                                            <div class="toast-body">
-                                                Teks berhasil disalin!
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <h4>20 September 2023</h4>
                     @else
+                        <h4>2 Oktober 2023</h4>
+                    @endif
+                </div>
+                <div class="card-body">
+                    <form enctype="multipart/form-data"
+                        action="{{ route('proses_pendaftaran', ['slug' => $kegiatan->slug, 'id' => $user->id]) }}"
+                        method="POST">
+                        @method('POST')
+                        @csrf
+                        <input type="hidden" name="kegiatan_id" value="{{ $kegiatan->id }}">
                         <div class="mb-3">
-                            <label for="pembayaran" class="form-label">Pembayaran</label>
-                            <div class="text-center d-flex flex-column align-items-center">
-                                <label for="scanPembayaran" class="form-label">Scan Pembayaran</label>
-                                <img style="width: 150px" src="{{ asset('assets/img/valter/qrcode_chintya.jpeg') }}"
-                                    id="scanPembayaran" alt="">
-                                <p class="form-label">atau</p>
+                            <label for="no_whatsapp" class="form-label">Nomor Whatsapp</label>
+                            <input type="number" class="form-control rounded-pill " name="no_whatsapp" id="no_whatsapp"
+                                aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="asal_instansi" class="form-label">Asal Instansi</label>
+                            <input type="text" class="form-control rounded-pill" name="asal_instansi" id="asal_instansi">
+                        </div>
 
-                                <div class="input-group w-100">
-                                    <input id="textToCopy" class="form-control rounded-pill d-inline-block"
-                                        name="bukti_pembayaran" value="088277551811 (Dana: Chintya Salma Ayu)" readonly>
-                                    <button class="btn btn-primary mx-2 rounded-pill d-inline-block" type="button"
-                                        id="copyButton"><i id="copyIcon" class="fa-regular fa-clipboard"></i></button>
-                                    <div class="toast-container  p-3">
-                                        <div id="copyAlert" class="toast" role="alert" aria-live="assertive"
-                                            aria-atomic="true">
-                                            <div class="toast-body">
-                                                Teks berhasil disalin!
+                        {{-- @php
+                            $allowedSlugs = ['lomba-web-design', 'lomba-design-logo', 'lomba-mobile-legend'];
+                        @endphp --}}
+                        @if (in_array($kegiatan->slug, $allowedSlugs))
+                            <div class="mb-3">
+                                <label for="pembayaran" class="form-label">Pembayaran</label>
+                                <div class="text-center d-flex flex-column align-items-center">
+                                    <label for="scanPembayaran" class="form-label">Scan Pembayaran via DANA</label>
+                                    <img style="width: 150px" src="{{ asset('assets/img/valter/qrcode_delima.jpeg') }}"
+                                        id="scanPembayaran" alt="">
+                                    <p class="form-label">atau</p>
+
+                                    <div class="input-group w-100">
+                                        <input id="textToCopy" class="form-control rounded-pill d-inline-block"
+                                            name="bukti_pembayaran" value="085841431872 (DANA: Delima Ayu Anugrah)" readonly>
+                                        <button class="btn btn-primary mx-2 rounded-pill d-inline-block" type="button"
+                                            id="copyButton"><i id="copyIcon" class="fa-regular fa-clipboard"></i></button>
+                                        <div class="toast-container  p-3">
+                                            <div id="copyAlert" class="toast" role="alert" aria-live="assertive"
+                                                aria-atomic="true">
+                                                <div class="toast-body">
+                                                    Teks berhasil disalin!
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        @else
+                            <div class="mb-3">
+                                <label for="pembayaran" class="form-label">Pembayaran</label>
+                                <div class="text-center d-flex flex-column align-items-center">
+                                    <label for="scanPembayaran" class="form-label">Scan Pembayaran via DANA</label>
+                                    <img style="width: 150px" src="{{ asset('assets/img/valter/qrcode_chintya.jpeg') }}"
+                                        id="scanPembayaran" alt="">
+                                    <p class="form-label">atau</p>
+
+                                    <div class="input-group w-100">
+                                        <input id="textToCopy" class="form-control rounded-pill d-inline-block"
+                                            name="bukti_pembayaran" value="088277551811 (DANA: Chintya Salma Ayu)" readonly>
+                                        <button class="btn btn-primary mx-2 rounded-pill d-inline-block" type="button"
+                                            id="copyButton"><i id="copyIcon" class="fa-regular fa-clipboard"></i></button>
+                                        <div class="toast-container  p-3">
+                                            <div id="copyAlert" class="toast" role="alert" aria-live="assertive"
+                                                aria-atomic="true">
+                                                <div class="toast-body">
+                                                    Teks berhasil disalin!
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+
+                        {{-- <div class="mb-3">
+                            <label for="bukti_pembayaran" class="form-label">Bukti Pembayaran</label>
+                            <input type="file" class="form-control rounded-pill" name="bukti_pembayaran"
+                                id="bukti_pembayaran">
+                        </div> --}}
+
+                        <div class="mb-3">
+                            <label for="bukti_pembayaran" class="form-label">Konfirmasi Pembayaran</label>
+
+                            @if ($slug == $webDesignSlug)
+                                <a href="https://wa.me/6285161445224?text=Saya mau mengirim bukti bayar"
+                                    class="btn btn-success w-100 rounded-pill">Kirim Bukti Pembayaran</a>
+                            @elseif ($slug == $designLogoSlug)
+                                <a href="https://wa.me/628974194248?text=Saya mau mengirim bukti bayar"
+                                    class="btn btn-success w-100 rounded-pill">Kirim Bukti Pembayaran</a>
+                            @elseif ($slug == $designLogoSlug)
+                                <a href="https://wa.me/6285384086119?text=Saya mau mengirim bukti bayar"
+                                    class="btn btn-success w-100 rounded-pill">Kirim Bukti Pembayaran</a>
+                            @elseif ($slug == $pelatihanSlug)
+                                <a href="https://wa.me/6288268126490?text=Saya mau mengirim bukti bayar"
+                                    class="btn btn-success w-100 rounded-pill">Kirim Bukti Pembayaran</a>
+                            @elseif ($slug == $seminarSlug)
+                                <a href="https://wa.me/6285694477188?text=Saya mau mengirim bukti bayar"
+                                    class="btn btn-success w-100 rounded-pill">Kirim Bukti Pembayaran</a>
+                            @endif
                         </div>
-                    @endif
-
-
-                    <div class="mb-3">
-                        <label for="bukti_pembayaran" class="form-label">Bukti Pembayaran</label>
-                        <input type="file" class="form-control rounded-pill" name="bukti_pembayaran"
-                            id="bukti_pembayaran">
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100 rounded-pill">Daftar</button>
-                </form>
-            </div>
+                        <button type="submit" class="btn btn-primary w-100 rounded-pill">Daftar</button>
+                    </form>
+                </div>
+            @endcan
         @endif
     @endguest
 </div>

@@ -1,14 +1,23 @@
 <section class="container py-5">
     <div class="row mt-5">
         @foreach ($sponsors as $sponsor)
-            <div class="col mt-3">
+            <div class="col-md-3 col-6 mt-3 d-lg-block d-none">
                 <div data-aos="fade-right" class="card">
-                    <div class="card-body text-center">
+                    <div class="card-body card-width text-center">
                         <img class="sponsorImg" src="{{ asset($sponsor->gambar) }}" alt="">
                     </div>
                 </div>
             </div>
         @endforeach
+        <div class="image-container d-flex overflow-x-auto d-lg-none d-block">
+            @foreach ($sponsors as $sponsor)
+                <div data-aos="fade-right" class="card" style="flex: 0 0 auto; margin-right: 10px;">
+                    <div class="card-body text-center">
+                        <img class="sponsorImg" src="{{ asset($sponsor->gambar) }}" alt="">
+                    </div>
+                </div>
+            @endforeach
+        </div>
     </div>
 </section>
 
@@ -22,7 +31,7 @@
                     src="{{ asset('assets/img/valter/TEASER VALTER FIXX 2023.mp4') }}" allowfullscreen sandbox></iframe>
             </div>
         </div>
-        <div data-aos="fade-left" class="col-md-6">
+        <div data-aos="fade-left" class="col-md-6 smaller-text align-items-center">
             <p>
                 Festival Multimedia dan Komputer (VALTER)
             </p>
@@ -50,9 +59,10 @@
                         class="guestImage card-img-top img-fluid rounded-top" alt="..">
                     <div class="card-body">
                         <h5 class="card-title">Gerald Vincent</h5>
-                        <div class="text-muted">Tutor/Teacher<div class="px-1"
+                        <div class="text-muted">Narasumber
+                            {{-- <div class="px-1"
                                 style="float: right; color: rgb(56, 56, 56); background-color: rgb(206, 206, 206);">Juri
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -63,9 +73,10 @@
                         class="guestImage card-img-top img-fluid rounded-top" alt="..">
                     <div class="card-body">
                         <h5 class="card-title">Fikri Haikal</h5>
-                        <div class="text-muted">Tutor/Teacher<div class="px-1"
+                        <div class="text-muted">Narasumber
+                            {{-- <div class="px-1"
                                 style="float: right; color: rgb(56, 56, 56); background-color: rgb(206, 206, 206);">Juri
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -95,12 +106,12 @@
     </div>
 </section>
 
-<section id="timeline mt-3">
+<section id="timeline mt-3 bg-white">
     <div class="py-5 bg-white">
         <h1 data-aos="fade-right" class="display-5 fw-bold text-center pt-5">Timeline</h1>
         <div class="background rounded-pill" style="width: 100px;height:5px;margin: auto;"></div>
     </div>
-    <div class="timeline">
+    <div class="timeline bg-white">
 
         @foreach ($timelines as $index => $timeline)
             <div class="timeline-row">
@@ -115,13 +126,16 @@
                     <div data-aos="fade-right" class="timeline-time display-5 text-muted fw-bold text-center">
                         {{ $timeline->kegiatan }}<small>{{ $timeline->tanggal }}</small>
                     </div>
-                    <div data-aos="fade-left" class="timeline-content">
+                    <div data-aos="fade-left" class="timeline-content2">
                         <img class="timelineImg" src="{{ asset($timeline->gambar) }}" alt="">
                     </div>
                 @endif
             </div>
         @endforeach
-
+    </div>
+    <div data-aos="fade-right" class="text-center postition-relative bg-white ">
+        <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            class="btn btn-primary rounded-pill ms-md-auto text-decoration-none">Selengkapnya</button>
     </div>
 </section>
 
@@ -181,6 +195,20 @@
         </div>
 </section>
 
+{{-- Modal --}}
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <img class="posterImg" src="{{ asset('assets/img/valter/timeline_table.png') }}" alt="">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @push('styles')
     <style>
         .card {
@@ -188,13 +216,22 @@
             cursor: pointer;
         }
 
-        .card:hover {
+
+        .posterImg {
+            width: 100%;
+            height: 100%;
+            object-fit: contain
+        }
+
+        */ .card:hover {
             transform: scale(1.025);
             box-shadow: rgba(0, 0, 0, 0.24) 0px 5px 10px transition-delay: 0.8s;
         }
 
         .kegiatanImg {
-            object-fit: contain
+            object-fit: contain;
+            width: 400px;
+            height: 400px;
         }
 
         .dokumentasi {
@@ -214,9 +251,35 @@
         }
 
         .sponsorImg {
-            width: 100px;
-            height: 80px;
+            width: 100%;
+            height: 150px;
             object-fit: contain
+        }
+
+        .card-width {
+            height: 170px;
+        }
+
+        .image-container {
+            display: flex;
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+        }
+
+        .image-container .card {
+            flex-shrink: 0;
+            width: 250px;
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 10px;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            max-height: 100%;
         }
 
         .timeline {
@@ -263,14 +326,28 @@
         }
 
         .timeline-row .timeline-content {
-            position: relative;
+            /* position: relative; */
             /* padding: 20px 30px; */
             /* background: #1a233a; */
             -webkit-border-radius: 4px;
             -moz-border-radius: 4px;
             border-radius: 4px;
             display: flex;
-            align-items: center;
+            align-items: flex-end;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .timeline-row .timeline-content2 {
+            /* position: relative; */
+            /* padding: 20px 30px; */
+            /* background: #1a233a; */
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+            display: flex;
+            align-items: flex-start;
             justify-content: center;
             flex-direction: column;
             text-align: center;
@@ -286,6 +363,30 @@
         }
 
         .timeline-row .timeline-content:before {
+            content: "";
+            position: absolute;
+            top: 20px;
+            right: -49px;
+            width: 20px;
+            height: 20px;
+            -webkit-border-radius: 100px;
+            -moz-border-radius: 100px;
+            border-radius: 100px;
+            z-index: 10;
+            background: #272e48;
+            border: 2px dashed #4b546f;
+        }
+
+        .timeline-row .timeline-content2:after {
+            content: "";
+            position: absolute;
+            top: 20px;
+            height: 16px;
+            width: 16px;
+            /* background: #1a233a; */
+        }
+
+        .timeline-row .timeline-content2:before {
             content: "";
             position: absolute;
             top: 20px;
@@ -358,6 +459,64 @@
             right: initial;
         }
 
+        .timeline-row .timeline-content2 h4 {
+            margin: 0 0 20px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            line-height: 150%;
+        }
+
+        .timeline-row .timeline-content2 p {
+            margin-bottom: 30px;
+            line-height: 150%;
+        }
+
+        .timeline-row .timeline-content2 i {
+            font-size: 1.2rem;
+            line-height: 100%;
+            padding: 15px;
+            -webkit-border-radius: 100px;
+            -moz-border-radius: 100px;
+            border-radius: 100px;
+            background: #272e48;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .timeline-row .timeline-content2 .thumbs {
+            margin-bottom: 20px;
+            display: flex;
+        }
+
+        .timeline-row .timeline-content2 .thumbs img {
+            margin: 5px;
+            max-width: 60px;
+        }
+
+        .timeline-row .timeline-content2 .badge {
+            color: #ffffff;
+            background: linear-gradient(120deg, #00b5fd 0%, #0047b1 100%);
+        }
+
+        .timeline-row:nth-child(even) .timeline-content2 {
+            margin-left: 40px;
+            text-align: left;
+        }
+
+        .timeline-row:nth-child(even) .timeline-content2:after {
+            left: -8px;
+            right: initial;
+            border-bottom: 0;
+            border-left: 0;
+            transform: rotate(-135deg);
+        }
+
+        .timeline-row:nth-child(even) .timeline-content2:before {
+            left: -52px;
+            right: initial;
+        }
+
         .timeline-row:nth-child(odd) {
             padding-left: 0;
             padding-right: 50%;
@@ -382,6 +541,17 @@
             transform: rotate(45deg);
         }
 
+        .timeline-row:nth-child(odd) .timeline-content2 {
+            margin-right: 40px;
+        }
+
+        .timeline-row:nth-child(odd) .timeline-content2:after {
+            right: -8px;
+            border-left: 0;
+            border-bottom: 0;
+            transform: rotate(45deg);
+        }
+
         .timelineImg {
             width: 300px;
             height: 300px;
@@ -389,6 +559,12 @@
         }
 
         @media (max-width: 992px) {
+
+            .smaller-text {
+                font-size: 14px;
+                /* Ukuran font yang lebih kecil di layar mobile */
+            }
+
             .timeline {
                 padding: 15px;
             }
@@ -410,6 +586,16 @@
 
             .timeline .timeline-row:nth-child(odd) .timeline-content {
                 margin: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center
+            }
+
+            .timeline .timeline-row:nth-child(odd) .timeline-content2 {
+                margin: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center
             }
 
             .timeline .timeline-row:nth-child(odd) .timeline-content:before {
@@ -417,6 +603,14 @@
             }
 
             .timeline .timeline-row:nth-child(odd) .timeline-content:after {
+                display: none;
+            }
+
+            .timeline .timeline-row:nth-child(odd) .timeline-content2:before {
+                display: none;
+            }
+
+            .timeline .timeline-row:nth-child(odd) .timeline-content2:after {
                 display: none;
             }
 
@@ -441,6 +635,21 @@
             }
 
             .timeline .timeline-row:nth-child(even) .timeline-content:after {
+                display: none;
+            }
+
+            .timeline .timeline-row:nth-child(even) .timeline-content2 {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 0;
+            }
+
+            .timeline .timeline-row:nth-child(even) .timeline-content2:before {
+                display: none;
+            }
+
+            .timeline .timeline-row:nth-child(even) .timeline-content2:after {
                 display: none;
             }
         }

@@ -2,6 +2,7 @@
 
 use App\Models\Kegiatan;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\DashboardController;

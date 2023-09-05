@@ -15,7 +15,7 @@
     @stack('styles')
 </head>
 
-<body id="beranda">
+<body class="overflow-x-hidden" id="beranda">
     <header>
         @include('user.layouts.header')
     </header>
